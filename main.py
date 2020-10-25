@@ -15,23 +15,77 @@
 # [START gae_python38_render_template]
 import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session
+
+from random import randrange, uniform
 
 app = Flask(__name__)
+
+app.secret_key = b'\xbeH\xd9\x14=\x91\x86\x8c\x0b\x859\x0eI\x80\xc5\xf4Z*\xf6\x15\x96\x812@[Q\xb2\x07\t~\xd0\xf2'
+
+scenarios = [['You need to pick up some groceries today. Will you put on your mask?',[['Yes', .1], ['Naw', .7]]],
+             ['Are you stupid?', [['Yes', .5], ['Yes', .5]]],
+             ['You saw someone cough on the doorknob. Do you lick it?', [['Yes', .9], ['No', .1]]]]
 
 
 @app.route('/')
 def root():
-    # For the sake of example, use static information to inflate the template.
-    # This will be replaced with real information in later steps.
-    dummy_times = [datetime.datetime(2018, 1, 1, 10, 0, 0),
-                   datetime.datetime(2018, 1, 2, 10, 30, 0),
-                   datetime.datetime(2018, 1, 3, 11, 0, 0),
-                   ]
+ 
 
-    return render_template('index.html', times=dummy_times)
+    return render_template('index.html')
 
+@app.route('/scenario_one', methods = ['GET', 'POST', 'DELETE'])
+def scenario_one():
+    session['name'] = request.form['username']
+    session['scenarios_left'] = scenarios[:]
+    current_scenario_number = randrange(len(session['scenarios_left']))
+    session['current_scenario'] = session['scenarios_left'][current_scenario_number]
+    del session['scenarios_left'][current_scenario_number]
+    
+    return render_template('scenario_one.html', username = session['name'], current_scenario = session['current_scenario'], scenarios_left = session['scenarios_left'])
 
+@app.route('/scenario_two', methods = ['GET', 'POST', 'DELETE'])
+def scenario_two():
+    covid_chance = float(request.form.get('scenario-one-select'))
+    covid_value = uniform(0, 1)
+    if covid_value < covid_chance:
+        return render_template('loser.html', username = session['name'])
+    else:
+        current_scenario_number = randrange(len(session['scenarios_left']))
+        session['current_scenario'] = session['scenarios_left'][current_scenario_number]
+        del session['scenarios_left'][current_scenario_number]
+        return render_template('scenario_two.html', username = session['name'], current_scenario = session['current_scenario'], scenarios_left = session['scenarios_left'])
+        
+        
+    
+
+@app.route('/scenario_three', methods = ['GET', 'POST', 'DELETE'])
+def scenario_three():
+    covid_chance = float(request.form.get('scenario-two-select'))
+    covid_value = uniform(0, 1)
+    if covid_value < covid_chance:
+        return render_template('loser.html', username = session['name'])
+    else:
+        current_scenario_number = randrange(len(session['scenarios_left']))
+        session['current_scenario'] = session['scenarios_left'][current_scenario_number]
+        del session['scenarios_left'][current_scenario_number]
+        return render_template('scenario_three.html', username = session['name'], current_scenario = session['current_scenario'], scenarios_left = session['scenarios_left'])
+
+@app.route('/finalday', methods = ['GET', 'POST', 'DELETE'])
+def finalday():
+    covid_chance = float(request.form.get('scenario-three-select'))
+    covid_value = uniform(0, 1)
+    if covid_value < covid_chance:
+        return render_template('loser.html', username = session['name'])
+    else:
+        return render_template('winner.html', username = session['name'])
+
+@app.route('/redirecthome', methods = ['GET', 'POST', 'DELETE'])
+def redirecthome():
+    return render_template('index.html')
+    
+    
+    
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This

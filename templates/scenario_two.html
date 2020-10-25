@@ -7,16 +7,20 @@
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.css') }}">
 </head>
 <body>
+	
+  <p> hello {{username}}. Today is the second day. </p>
+  <p>{{current_scenario[0]}}</p>
 
-  <h1>Welcome to the Covid Trail!</h1>
 
-  <p>Welcome to the Covid Trail, inspired by The Oregon Trail game. Your objective is to navigate through three days and avoid contracting COVID.</p>
-  <form action="{{ url_for('scenario_one') }}" method="POST">
-  <label> Username </label>
-    <input type="text" name="username">
-
-    <button type=”submit”> Play </button>
+  <form action="{{ url_for('scenario_three') }}" method="POST">
+  <select name="scenario-two-select">
+    {% for option, covid_chance in current_scenario[1] %}
+    <option value="{{covid_chance}}">{{option}}</option>"
+    {% endfor %}
+  </select>
+  <button type=”submit”> Next </button>
   </form>
+  
   
 
 </body>
