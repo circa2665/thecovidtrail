@@ -23,13 +23,13 @@ app = Flask(__name__)
 
 app.secret_key = b'\xbeH\xd9\x14=\x91\x86\x8c\x0b\x859\x0eI\x80\xc5\xf4Z*\xf6\x15\x96\x812@[Q\xb2\x07\t~\xd0\xf2'
 
-scenarios = [['You need to pick up some groceries today. Will you put on your mask?',[['Yes', .1], ['Naw', .7]]],
+scenarios = [['You need to pick up some groceries today. Will you put on your mask?',[['Naw', .7], ['Yes', .1]]],
              ['Are you stupid?', [['Yes', .4], ['Yes', .4], ['Yes', .6], ['No?', .01], ['No you are.', .99]]],
              ['You saw someone cough on a doorknob. Do you lick it?', [['Yes', .9], ['No', .1]]],
              ['Your friends invite you to go out to a restaurant and some bars. Do you go with them?', [['Yes', .7], ['No', .05]]],
              ['You see a stranger by the bus stop who looks quite peculiar. What do you do?', [['Strike up a conversation', .63], ['Refrain to talk to them', .1], ['Give them a big smooch', .99], ['You kick em in the shin 5 times', .3]]],
-             ['You go to a local voting location to vote. What do you do?', [['Wear a mask', .12], ['Go maskless', .7]]],
-             ['You feel very tired of being inside all day. You have to relieve some stress.', [['Go to the park and take a walk', .1], ['Go to the library to read a book', .3], ['Rob a bank', .6], ['Go to a football game', .8], ['Do some home exercise.', .01]]]]
+             ['You go to a local voting location to vote. What do you do?', [['Go maskless', .7], ['Wear a mask', .12]]],
+             ['You feel very tired of being inside all day. You have to relieve some stress.', [['Go to the park and take a walk', .1], ['Rob a bank (+3.6 million dollars)', .5], ['Go to a football game', .8], ['Do some home exercise.', .01]]]]
 
 
 @app.route('/')

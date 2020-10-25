@@ -1,26 +1,29 @@
 <!doctype html>
 <html>
 <head>
-  <title>Datastore and Firebase Auth Example</title>
+  <title>The Covid Trail</title>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
-  <h1>Welcome to the Covid Trail!</h1>
+  <div class="container text-center mx-auto pt-1">
+    <h1>Welcome to the Covid Trail!</h1>
 
-  <p>
-    Welcome to the Covid Trail, inspired by The Oregon Trail game. Your objective is to navigate through three days and avoid contracting COVID.
-    We wanted to create a simulation where your choices affected the outcome of the game, while also potentially helping to educate on the
-    preventative ways to keep yourself and other healthy!
-  </p>
-  <form action="{{ url_for('scenario_one') }}" method="POST">
-  <label> Username </label>
-    <input type="text" name="username">
+    <p>
+      Welcome to the Covid Trail, inspired by The Oregon Trail game. Your objective is to navigate through three days and avoid contracting COVID.
+      We wanted to create a simulation where your choices affected the outcome of the game, while also potentially helping to educate on the
+      preventative ways to keep yourself and other healthy!
+    </p>
+    <form action="{{ url_for('scenario_one') }}" method="POST">
+    <label> Please enter your name: </label>
+      <input type="text" name="username">
 
-    <button type=”submit”> Play </button>
-  </form>
+      <button type=”submit”> Play </button>
+    </form>
+  </div>
 
 
 </body>

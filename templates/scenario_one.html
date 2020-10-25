@@ -1,27 +1,29 @@
 <!doctype html>
 <html>
 <head>
-  <title>Datastore and Firebase Auth Example</title>
+  <title>The Covid Trail</title>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	
-  <p> hello {{username}}. Today is the first day. </p>
-  <p>{{current_scenario[0]}}</p>
+
+	<div class="container text-center mx-auto pt-1">
+    <h1> Hello {{username}}. Today is the first day. </h1>
+    <p>{{current_scenario[0]}}</p>
 
 
-  <form action="{{ url_for('scenario_two') }}" method="POST">
-  <select name="scenario-one-select">
-    {% for option, covid_chance in current_scenario[1] %}
-    <option value="{{covid_chance}}">{{option}}</option>"
-    {% endfor %}
-  </select>
-  <button type=”submit”> Next </button>
-  </form>
-  
-  
+    <form action="{{ url_for('scenario_two') }}" method="POST">
+    <select name="scenario-one-select">
+      {% for option, covid_chance in current_scenario[1] %}
+      <option value="{{covid_chance}}">{{option}}</option>"
+      {% endfor %}
+    </select>
+    <button type=”submit”> Next </button>
+    </form>
+  </div>
+
 
 </body>
 </html>

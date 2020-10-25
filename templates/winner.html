@@ -1,29 +1,31 @@
 <!doctype html>
 <html>
 <head>
-  <title>Datastore and Firebase Auth Example</title>
+  <title>The Covid Trail</title>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
-  <h1> Congrats {{username}}! you survived COVID19 for 3 days!!</h1>
-  <br>
-  <div>
-    <p>COVID fact: Masks are the most effective when both the sick and the healthy wear them!
-      They prevent the particles of virus from spreading in the air. Wear masks to protect those around you!
-    </p>
-    <p>
-      For more mask facts, visit <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/about-face-coverings.html">this link</a>
-      to learn more.
-    </p>
+  <div class="container text-center mx-auto pt-1">
+    <h1> Congrats {{username}}! you survived COVID19 for 3 days!!</h1>
+    <br>
+    <div>
+      <p>COVID fact: Masks are the most effective when both the sick and the healthy wear them! <br>
+        They prevent the particles of virus from spreading in the air. Wear masks to protect those around you!
+      </p>
+      <p>
+        For more mask facts, visit <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/about-face-coverings.html">this link</a>
+        to learn more.
+      </p>
+    </div>
+
+    <form action="{{ url_for('redirecthome') }}" method="POST">
+    <button type=”submit”> Return Home </button>
+    </form>
   </div>
-
-  <form action="{{ url_for('redirecthome') }}" method="POST">
-  <button type=”submit”> Return Home </button>
-  </form>
-
 
 
 </body>
