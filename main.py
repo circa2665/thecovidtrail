@@ -24,13 +24,17 @@ app = Flask(__name__)
 app.secret_key = b'\xbeH\xd9\x14=\x91\x86\x8c\x0b\x859\x0eI\x80\xc5\xf4Z*\xf6\x15\x96\x812@[Q\xb2\x07\t~\xd0\xf2'
 
 scenarios = [['You need to pick up some groceries today. Will you put on your mask?',[['Yes', .1], ['Naw', .7]]],
-             ['Are you stupid?', [['Yes', .5], ['Yes', .5]]],
-             ['You saw someone cough on the doorknob. Do you lick it?', [['Yes', .9], ['No', .1]]]]
+             ['Are you stupid?', [['Yes', .4], ['Yes', .4], ['Yes', .6], ['No?', .01], ['No you are.', .99]]],
+             ['You saw someone cough on a doorknob. Do you lick it?', [['Yes', .9], ['No', .1]]],
+             ['Your friends invite you to go out to a restaurant and some bars. Do you go with them?', [['Yes', .7], ['No', .05]]],
+             ['You see a stranger by the bus stop who looks quite peculiar. What do you do?', [['Strike up a conversation', .63], ['Refrain to talk to them', .1], ['Give them a big smooch', .99], ['You kick em in the shin 5 times', .3]]],
+             ['You go to a local voting location to vote. What do you do?', [['Wear a mask', .12], ['Go maskless', .7]]],
+             ['You feel very tired of being inside all day. You have to relieve some stress.', [['Go to the park and take a walk', .1], ['Go to the library to read a book', .3], ['Rob a bank', .6], ['Go to a football game', .8], ['Do some home exercise.', .01]]]]
 
 
 @app.route('/')
 def root():
- 
+
 
     return render_template('index.html')
 
@@ -41,7 +45,7 @@ def scenario_one():
     current_scenario_number = randrange(len(session['scenarios_left']))
     session['current_scenario'] = session['scenarios_left'][current_scenario_number]
     del session['scenarios_left'][current_scenario_number]
-    
+
     return render_template('scenario_one.html', username = session['name'], current_scenario = session['current_scenario'], scenarios_left = session['scenarios_left'])
 
 @app.route('/scenario_two', methods = ['GET', 'POST', 'DELETE'])
@@ -55,9 +59,9 @@ def scenario_two():
         session['current_scenario'] = session['scenarios_left'][current_scenario_number]
         del session['scenarios_left'][current_scenario_number]
         return render_template('scenario_two.html', username = session['name'], current_scenario = session['current_scenario'], scenarios_left = session['scenarios_left'])
-        
-        
-    
+
+
+
 
 @app.route('/scenario_three', methods = ['GET', 'POST', 'DELETE'])
 def scenario_three():
@@ -83,9 +87,9 @@ def finalday():
 @app.route('/redirecthome', methods = ['GET', 'POST', 'DELETE'])
 def redirecthome():
     return render_template('index.html')
-    
-    
-    
+
+
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
